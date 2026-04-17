@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Lobby · Sparkling Donkey{% endblock %}
+
+{% block content %}
+<div class="movie-grid">
+    <h1 class="page-title">Tonight's Selection</h1>
+    <div class="movie-cards">
+        {% for movie in movies %}
+        <div class="movie-card" data-movie-id="{{ movie.id }}">
+            <div class="card-poster">
+                <img src="{{ url_for('static', filename='img/thumbnails/' + movie.thumb) }}" alt="{{ movie.title }}">
+                <div class="hover-play">▶</div>
+            </div>
+            <h3>{{ movie.title }}</h3>
+            <a href="{{ url_for('room', movie_id=movie.id) }}" class="btn-watch">Watch Together</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}	
