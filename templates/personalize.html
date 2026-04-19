@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Personalize · Sparkling Donkey{% endblock %}
+
+{% set show_header = False %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="logo">
+            <span class="gold">✦</span> Sparkling Donkey
+        </div>
+        <div class="auth-card personalization-card">
+            <h2>Set Your Atmosphere</h2>
+            <p class="auth-subtitle">Your choices stay with you, independent of your partner.</p>
+            <form method="POST">
+                <div class="pref-section">
+                    <label>Theme</label>
+                    <div class="theme-options">
+                        <label class="theme-option">
+                            <input type="radio" name="theme" value="gold-black" checked>
+                            <span class="theme-preview gold-black"></span>
+                            <span>Gold + Black <small>(Dark Cinematic)</small></span>
+                        </label>
+                        <label class="theme-option">
+                            <input type="radio" name="theme" value="gold-white">
+                            <span class="theme-preview gold-white"></span>
+                            <span>Gold + White <small>(Light Elegant)</small></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="pref-section">
+                    <label>UI Style</label>
+                    <div class="style-options">
+                        <label><input type="radio" name="style" value="minimal" checked> Minimal</label>
+                        <label><input type="radio" name="style" value="cinematic"> Cinematic</label>
+                        <label><input type="radio" name="style" value="bold"> Bold</label>
+                    </div>
+                </div>
+                <div class="pref-section">
+                    <label>Display Name</label>
+                    <input type="text" name="nickname" placeholder="{{ user }}" value="{{ user }}" maxlength="20">
+                </div>
+                <button type="submit" class="btn-gold">Continue to Lobby</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

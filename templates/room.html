@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Watch Room · Sparkling Donkey{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script>
+    window.roomData = {
+        movieId: "{{ movie_id }}",
+        videoUrl: "{{ video_url }}",
+        user: "{{ user }}",
+        prefs: {{ prefs|tojson }}
+    };
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="room-container">
+    <!-- Header -->
+    <div class="room-header">
+        <a href="{{ url_for('home') }}" class="back-link">← Lobby</a>
+        <div class="room-status">
+            <span class="user-badge">{{ prefs.nickname }}</span>
+            <span class="sync-indicator" id="syncStatus">⚡ Live</span>
+        </div>
+    </div>
+
+    <!-- Main Content Area: Video + Chat Sidebar -->
+    <div class="room-main">
+        <!-- Video Section -->
+        <div class="video-section">
+            <div class="video-wrapper cinematic">
+                <video id="moviePlayer" src="{{ video_url }}" controls></video>
+                <!-- Emoji Reaction Container -->
+                <div id="reactionContainer" class="reaction-container"></div>
+            </div>
+        </div>
+
+        <!-- Chat Sidebar -->
+        <div class="chat-sidebar" id="chatSidebar">
+            <div class="chat-header">
+                <span>💬 Live Chat</span>
+                <button class="chat-toggle" id="chatToggle">−</button>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message system">
+                    <span>✨ Welcome to Sparkling Donkey</span>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typingIndicator"></div>
+
+            <!-- Emoji Quick Reactions -->
+            <div class="emoji-bar">
+                <button class="emoji-btn" data-emoji="❤️">❤️</button>
+                <button class="emoji-btn" data-emoji="😂">😂</button>
+                <button class="emoji-btn" data-emoji="😮">😮</button>
+                <button class="emoji-btn" data-emoji="😢">😢</button>
+                <button class="emoji-btn" data-emoji="🔥">🔥</button>
+                <button class="emoji-btn" data-emoji="👏">👏</button>
+                <button class="emoji-btn" data-emoji="🍿">🍿</button>
+                <button class="emoji-btn" data-emoji="🎬">🎬</button>
+                <button class="emoji-btn" data-emoji="😍">😍</button>
+                <button class="emoji-btn" data-emoji="🙄">🙄</button>
+                <button class="emoji-btn" data-emoji="💀">💀</button>
+                <button class="emoji-btn" data-emoji="😭">😭</button>
+                <button class="emoji-btn" data-emoji="🤔">🤔</button>
+                <button class="emoji-btn" data-emoji="👍">👍</button>
+                <button class="emoji-btn" data-emoji="👎">👎</button>
+                <button class="emoji-btn" data-emoji="🎉">🎉</button>
+                <button class="emoji-btn" data-emoji="💩">💩</button>
+                <button class="emoji-btn" data-emoji="🍑">🍑</button>
+                <button class="emoji-btn" data-emoji="🍆">🍆</button>
+                <button class="emoji-btn" data-emoji="👀">👀</button>
+                <button class="emoji-btn" data-emoji="💋">💋</button>
+                <button class="emoji-btn" data-emoji="🫣">🫣</button>
+                <button class="emoji-btn" data-emoji="🥵">🥵</button>
+                <button class="emoji-btn" data-emoji="🫠">🫠</button>
+            </div>
+
+            <!-- Message Input -->
+            <div class="chat-input-container">
+                <input type="text"
+                       id="chatInput"
+                       class="chat-input"
+                       placeholder="Send a message..."
+                       maxlength="200">
+                <button id="sendMessageBtn" class="send-btn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="room-footer">
+        <div class="viewers">
+            <span id="viewerCount">0</span> viewer(s) in room
+        </div>
+        <button class="chat-mobile-toggle" id="chatMobileToggle">💬 Chat</button>
+    </div>
+</div>
+{% endblock %}

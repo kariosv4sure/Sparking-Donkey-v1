@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sparkling Donkey{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Socket.IO is loaded only when needed (room page) -->
+    {% block extra_head %}{% endblock %}
+    {% if prefs %}
+    <script>
+        window.userPrefs = {{ prefs|tojson }};
+    </script>
+    {% endif %}
+</head>
+<body class="{% if prefs %}theme-{{ prefs.theme }} style-{{ prefs.style }}{% endif %}">
+    <!-- Ambient background decoration (common) -->
+    <div class="ambient-glow"></div>
+
+    <!-- Optional global header (shown on all pages except maybe auth) -->
+    {% if show_header|default(true) %}
+    <header>
+        <div class="logo">✦ Sparkling Donkey</div>
+        <div class="user-area">
+            {% if prefs %}
+            <span class="user-greeting">{{ prefs.nickname }}</span>
+            {% endif %}
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    {% endif %}
+
+    <!-- Main Content Block -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Global Scripts -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Lobby · Sparkling Donkey{% endblock %}
+
+{% block content %}
+<div class="movie-grid">
+    <h1 class="page-title">Tonight's Selection</h1>
+    
+    {% if movies %}
+    <div class="movie-cards">
+        {% for movie in movies %}
+        <div class="movie-card" data-movie-id="{{ movie.id }}">
+            <div class="card-poster">
+                {% if movie.thumb %}
+                <img src="{{ url_for('static', filename='img/thumbnails/' + movie.thumb) }}" alt="{{ movie.title }}">
+                {% else %}
+                <!-- Beautiful fallback if no thumbnail -->
+                <div class="placeholder-poster">
+                    <span class="movie-title-overlay">{{ movie.title }}</span>
+                    <div class="gold-accent"></div>
+                </div>
+                {% endif %}
+                <div class="hover-play">▶</div>
+            </div>
+            <h3>{{ movie.title }}</h3>
+            <a href="{{ url_for('room', movie_id=movie.id) }}" class="btn-watch">Watch Together</a>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Vibes footer -->
+    <div class="lobby-footer">
+        <span>💀 Horror</span>
+        <span class="gold-dot">✦</span>
+        <span>😨 Fear</span>
+        <span class="gold-dot">✦</span>
+        <span>🎬 Cinema</span>
+    </div>
+    {% else %}
+    <div class="no-movies">
+        <p>🎬 No movies found.</p>
+        <p class="gold">Add .mp4 files to /static/movies/</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
