@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", ping_timeout=60, ping_interval=25, async_mode='gevent')
 
 # ---------- Room‑based state (scalable) ----------
 # Structure: { room_name: { 'movie': str, 'playing': bool, 'currentTime': float, 'users': set() } }

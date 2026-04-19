@@ -1,5 +1,14 @@
-Flask
-Flask-SocketIO
-python-dotenv
-gunicorn
+# Core framework
+Flask==2.3.2
+Flask-SocketIO==5.3.4
 
+# Async + WebSocket support (production)
+gevent==23.9.1
+gevent-websocket==0.10.1
+simple-websocket==1.0.0
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Production server
+gunicorn==21.2.0
